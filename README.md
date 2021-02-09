@@ -21,7 +21,7 @@
 </div>
 <div style="position:relative; min-height: 200px">
   <center>
-    <img src="docs/images/archicteture_ref.png" alt="Tweets">
+    <img src="docs/images/archicteture_ref.svg">
   </center>
 
 </div>
