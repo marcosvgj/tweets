@@ -14,14 +14,29 @@
     <img src="https://img.shields.io/badge/tweepy-3.10.0-blue">
 </div>
 
+## Table of Contents
 
-<div>
-<h1> </h1>
+1. [Proposed data architecture](#data_arch)
+2. [Proposed datalake zones](#data_zones)
+3. [Running](#t3)
 
-</div>
-<div style="position:relative; min-height: 200px">
-  <center>
-    <img src="docs/images/archicteture_ref.svg">
-  </center>
 
-</div>
+&nbsp;
+<h1>Proposed data architecture</h1>
+<h1 name="data_arch">Proposed data architecture</h1>
+
+This architecture is based on the most common Big Data Archicture, called as **Lambda Archicteture**, that's divided according those topics:
+* **Data Source**: Responsible to map a new data source, such as Twitter API. 
+* **Batch Layer**: Responsible to mantain components that can handle very large quantities of data.
+* **Speed Layer**: Reponsible to maintain components that processes data streams in real time.
+* **Serving Layer**: Output from the batch and speed layers are stored in the serving layer, which responds to ad-hoc queries by returning precomputed views or building views from the processed data.
+
+<img src="docs/images/archicteture_ref.png"></img>
+
+***obs: Those components are wrapped by docker container environment.***
+
+&nbsp;
+<h1 name="data_zones">Proposed datalake zones</h1>
+<img src="docs/images/archicteture_zones.png"></img>
+
+
