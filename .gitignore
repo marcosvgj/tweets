@@ -3,9 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# PyCredentials
+# Tweepy Credentials
 
-credentials.txt
+credentials.yaml
 
 # C extensions
 *.so
