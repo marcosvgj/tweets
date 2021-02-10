@@ -3,14 +3,10 @@ from typing import Text, NoReturn
 from twitter.helpers import Singleton
 
 
-__all__ = ["TwitterCLI"]
+__all__ = ["TwitterClient"]
 
 
-class TwitterCLI(metaclass=Singleton):
-    """
-    Interface of OAuth 1a (application-user) authentication method from Tweetpy SDK. This client is used with Singleton pattern.
-    """
-
+class TwitterClient(metaclass=Singleton):
     def __init__(
         self,
         access_token: Text,
@@ -18,14 +14,6 @@ class TwitterCLI(metaclass=Singleton):
         consumer_key: Text,
         consumer_secret: Text,
     ):
-        """
-        Args:
-            access_token (str): Access token provided by Twitter Developer Portal.
-            access_token_secret (str): access token Secret provided by Twitter Developer Portal.
-            consumer_key (str): Consumer key provided by Twitter Developer Portal.
-            consumer_secret (str): Consumer secret provided by Twitter Developer Portal.
-        For more information about authentication at Twitter Developer, check: https://developer.twitter.com/en/docs/authentication/overview.
-        """
         authorization = OAuthHandler(
             consumer_key=consumer_key, consumer_secret=consumer_secret
         )

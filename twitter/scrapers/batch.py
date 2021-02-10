@@ -10,8 +10,8 @@ class Search:
     def query(
         client: TwitterClient, hashtags: Sequence[Text], batch_size: SupportsInt = 15
     ):
-        search = lambda hashtag: client.search(q=hashtag, count=batch_size)
-        yield list(
+        search = lambda hashtag: client.api.search(q=hashtag, count=batch_size)
+        return list(
             map(
                 lambda tweet: tweet._json,
                 helpers.flat_map(search, hashtags),

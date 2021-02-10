@@ -8,10 +8,6 @@ __all__ = ["CredentialsHandler"]
 
 
 class CredentialsHandler:
-    """
-    Interface of OAuth 1a (application-user) credentials recovery.
-    """
-
     @staticmethod
     def read_credentials_from_file(
         path="resources/credentials.yaml", key="twitter_app"
@@ -23,7 +19,3 @@ class CredentialsHandler:
             logging.error(
                 f"Error in load configuration file inside resources folder. Details: {error}"
             )
-
-    @staticmethod
-    def read_credentails_from_vault():
-        pass

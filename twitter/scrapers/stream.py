@@ -1,11 +1,9 @@
-from twitter.client import TwitterCLI
+from twitter.client import TwitterClient
 from typing import NoReturn, SupportsInt
-
-# https://www.geeksforgeeks.org/extracting-tweets-containing-a-particular-hashtag-using-python/
 
 __all__ = ["Streaming"]
 
 
 class Streaming:
-    def __init__(self, client: TwitterCLI) -> NoReturn:
-        self.client = client.api
+    def __init__(self, client: TwitterClient) -> NoReturn:
+        """TODO""""
