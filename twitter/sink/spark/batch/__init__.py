@@ -8,7 +8,6 @@ from typing import Optional, Text
 class Pipeline:
     @staticmethod
     def dataset(
-        save: bool = False,
         hashtags: list = ["COVID19"],
         batch_size: int = 1024,
     ):
