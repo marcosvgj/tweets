@@ -17,7 +17,9 @@ default_args = {
 
 
 def run():
-    Pipeline.dataset(save=True, hashtags=["COVID19"])
+    Pipeline.dataset(save=True, hashtags=["COVID19"], batch_size=500).write.format(
+        "parquet"
+    ).mode("append").option("path", "hdfs://hdfs:9000/tweets/covid").save()
 
 
 dag = DAG(
