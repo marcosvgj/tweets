@@ -1,16 +1,16 @@
 from twitter import helpers
-from twitter.client import TwitterCLI
+from twitter.client import TwitterClient
 from typing import NoReturn, Sequence, SupportsInt, Text
 
-__all__ = ["Batch"]
+__all__ = ["Search"]
 
 
-class Batch:
-    def __init__(self, client: TwitterCLI) -> NoReturn:
-        self.client = client.api
-
-    def query(self, hashtags: Sequence[Text], batch_size: SupportsInt = 15):
-        search = lambda hashtag: self.client.search(q=hashtag, count=batch_size)
+class Search:
+    @staticmethod
+    def query(
+        client: TwitterClient, hashtags: Sequence[Text], batch_size: SupportsInt = 15
+    ):
+        search = lambda hashtag: client.search(q=hashtag, count=batch_size)
         yield list(
             map(
                 lambda tweet: tweet._json,
