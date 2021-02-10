@@ -17,11 +17,9 @@ install-whell: build-wheel
 test: 
 	@python3 -m unittest -v
 
-setup: test
-	@make install-whell
-	@make delete-py-cache
-	@make delete-wheel
+.PHONY: install
+install: test install-whell delete-py-cache delete-wheel
 
-clean: delete-wheel
-	@make delete-py-cache
+.PHONY: clean
+clean: delete-wheel delete-py-cache
 
