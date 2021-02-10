@@ -18,4 +18,4 @@ class Singleton(type):
 
 
 def flat_map(function, items):
-    return itertools.chain(*list(map(function, items)))
+    return itertools.chain(*map(function, items))
