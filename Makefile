@@ -14,7 +14,14 @@ build-wheel:
 install-whell: build-wheel
 	@pip3 install --use-wheel dist/*.whl
 
-setup: install-whell
+test: 
+	@python3 -m unittest -v
+
+setup: test
+	@make install-whell
+	@make delete-py-cache
+	@make delete-wheel
+
 clean: delete-wheel
-	
+	@make delete-py-cache
 
