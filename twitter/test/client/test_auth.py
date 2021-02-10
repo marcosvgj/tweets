@@ -9,13 +9,10 @@ class CredentialsHandlerTestCase(unittest.TestCase):
         )
 
     def test_read_credentials_from_file(self):
-        """
-        Check for each key if value == <key> given credentials dict.
-        """
-        check_constraint = {
-            value == f"<{key}>" for key, value in self.credentials.items()
-        }
-        self.assertEqual(check_constraint, {True})
+        assert "access_token" in self.credentials
+        assert "access_token_secret" in self.credentials
+        assert "consumer_key" in self.credentials
+        assert "consumer_secret" in self.credentials
 
 
 if __name__ == "__main__":
