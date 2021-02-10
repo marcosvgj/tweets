@@ -50,3 +50,24 @@ This architecture is based on the most common Big Data Archicture, called as **L
 ***obs: Those components are wrapped by docker container environment.***
 
 &nbsp;
+
+How To Use
+=========
+
+## TODO 
+
+&nbsp;
+
+References
+=========
+
+## TODO 
+
+&nbsp;
+
+Todo's
+=========
+
+## TODO 
+
+&nbsp;
