@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Tweepy Credentials
+
+credentials.yaml
+
 # C extensions
 *.so
 
