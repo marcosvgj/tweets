@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# PyCredentials
+
+credentials.txt
+
 # C extensions
 *.so
 
