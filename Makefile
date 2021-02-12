@@ -1,7 +1,10 @@
 SHELL=/bin/bash
 PIP=`command -v pip3 || pip`
 
-.PHONY: install clean build test start
+.PHONY: install clean build test start configure
+
+configure:
+	$(SHELL) credentials_setup/setup.sh
 
 install-requirements:
 	$(PIP) install -r requirements.txt
