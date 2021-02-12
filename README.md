@@ -65,7 +65,7 @@ $ git clone https://github.com/marcosvgj/tweets.git
 $ cd tweets
 
 # Run Makefile that will run everything that you need to start the application.
-$ make build
+$ make start
 
 ```
 
