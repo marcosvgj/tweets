@@ -8,12 +8,11 @@ from typing import Optional, Text
 class Pipeline:
     @staticmethod
     def dataset(
-        hashtags: list = ["COVID19"],
+        spark: SparkSession,
+        hashtags: list,
         batch_size: int = 1024,
     ):
         client = TwitterClient(**CredentialsHandler.read_credentials_from_file())
         data = Search.query(client=client, hashtags=hashtags, batch_size=batch_size)
-        spark = SparkSession.builder.getOrCreate()
-
-        remove_none_values = lambda item: {k: v for k, v in item.items() if v}
-        return spark.createDataFrame(map(remove_none_values, data))
+        data = spark.sparkContext.parallelize(data)
+        return spark.read.json(data)
