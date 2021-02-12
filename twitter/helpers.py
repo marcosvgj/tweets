@@ -19,3 +19,7 @@ class Singleton(type):
 
 def flat_map(function, items):
     return itertools.chain(*map(function, items))
+
+
+def fill_na_dict(items):
+    return {k: v for k, v in items.items() if v}
