@@ -20,7 +20,7 @@ install-python-project:
 	$(PIP) install --use-wheel dist/*.whl
 
 clean-pyc:
-	sudo find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
+	find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
 
 clean-build:
 	rm --force --recursive build/
