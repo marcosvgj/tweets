@@ -54,7 +54,23 @@ This architecture is based on the most common Big Data Archicture, called as **L
 How To Use
 =========
 
-## TODO 
+
+To clone and run this application, you'll need [Git](https://git-scm.com) and [Docker](https://docs.docker.com/get-docker/) installed on your computer. From your command line:
+
+```bash
+# Clone this repository
+$ git clone https://github.com/marcosvgj/tweets.git
+
+# Go into the repository
+$ cd tweets
+
+# Run Makefile that will run everything that you need to start the application.
+$ make build
+
+```
+
+Note: This pipeline was made to Unix environments. 
+
 
 &nbsp;
 
