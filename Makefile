@@ -1,25 +1,46 @@
 SHELL=/bin/bash
+PIP=`command -v pip3 || pip`
 
-delete-py-cache:
-	@find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
+.PHONY: install clean build test start
 
-delete-wheel: delete-py-cache
-	@find . -type d -name 'build' -exec rm -rf {} +
-	@find . -type d -name 'dist' -exec rm -rf {} +
-	@find . -type d -name '*.egg-info' -exec rm -rf {} +
-	
-build-wheel:
-	@python3 setup.py sdist bdist_wheel
+install-requirements:
+	$(PIP) install -r requirements.txt
 
-install-whell: build-wheel
-	@pip3 install --use-wheel dist/*.whl
-
-test: 
+test:
 	@python3 -m unittest -v
 
-.PHONY: install
-install: test install-whell delete-py-cache delete-wheel
+build:
+	@python3 setup.py sdist bdist_wheel
 
-.PHONY: clean
-clean: delete-wheel delete-py-cache
+copy-python-project:
+	cp -f dist/*.whl docker/airflow/libs
+	cp -f requirements.txt docker/airflow/
 
+install-python-project:
+	$(PIP) install --use-wheel dist/*.whl
+
+clean-pyc:
+	sudo find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
+
+clean-build:
+	rm --force --recursive build/
+	rm --force --recursive dist/
+	rm --force --recursive *.egg-info
+
+docker-compose-up:
+	docker-compose kill
+	docker-compose rm -f
+	docker-compose pull
+	docker-compose up --build --force-recreate -d
+
+install: install-requirements test build install-python-project copy-python-project clean
+clean: clean-pyc clean-build
+start: install docker-compose-up
+	
+
+
+
+
+
+
+	

@@ -13,7 +13,10 @@ class Search:
         search = lambda hashtag: client.api.search(q=hashtag, count=batch_size)
         return list(
             map(
-                lambda tweet: tweet._json,
-                helpers.flat_map(search, hashtags),
+                helpers.fill_na_dict,
+                map(
+                    lambda tweet: tweet._json,
+                    helpers.flat_map(search, hashtags),
+                ),
             )
         )

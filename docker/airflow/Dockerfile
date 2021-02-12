@@ -29,9 +29,13 @@ RUN cd /usr/ \
     && mv $SPARK_VERSION-bin-hadoop2.7 spark
 
 RUN mkdir -p /usr/spark/work/ \
-    && chmod -R 777 /usr/spark/work/
+    && chmod -R 777 /usr/spark/work/ \
+    && mkdir libs
 
-COPY requirements_airflow.txt requirements.txt
+COPY libs/ libs/
+COPY requirements.txt requirements.txt
+COPY /dags /usr/local/airflow/dags
+
 RUN python -m pip install --upgrade pip
 RUN pip install -r requirements.txt
-USER airflow
+RUN pip install libs/*.whl

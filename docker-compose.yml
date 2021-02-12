@@ -12,10 +12,10 @@ services:
                 max-file: "3"
 
     webserver:
-        image: puckel/docker-airflow:1.10.9
+        build: docker/airflow/
         restart: always
         depends_on:
-            - postgres
+            - postgres        
         environment:
             - LOAD_EX=n
             - EXECUTOR=Local
@@ -23,8 +23,6 @@ services:
             options:
                 max-size: 10m
                 max-file: "3"
-        volumes:
-          - ./docker/airflow/dags:/usr/local/airflow/dags
         ports:
             - "8090:8080"
         command: webserver
@@ -34,29 +32,6 @@ services:
             timeout: 30s
             retries: 3
 
-    spark-master:
-      image: bde2020/spark-master:3.0.1-hadoop3.2
-      ports:
-        - "8080:8080"
-        - "7077:7077"
-      environment:
-        - INIT_DAEMON_STEP=setup_spark
-        - "constraint:node==spark-master"
-      volumes:
-        - ./twitter:/spark/twitter
-  
-    spark-worker:
-      image: bde2020/spark-worker:3.0.1-hadoop3.2
-      depends_on:
-        - spark-master
-      ports:
-        - "8081:8081"
-      volumes:
-        - ./twitter:/spark/twitter
-      environment:
-        - "SPARK_MASTER=spark://spark-master:7077"
-        - "constraint:node==spark-worker"
-        
     hadoop:
       image: sequenceiq/hadoop-docker:2.7.0
       ports:
