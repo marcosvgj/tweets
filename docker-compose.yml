@@ -10,6 +10,9 @@ services:
             options:
                 max-size: 10m
                 max-file: "3"
+    
+    hive-metastore-postgresql:
+        image: bde2020/hive-metastore-postgresql:2.3.0
 
     webserver:
         build: docker/airflow/
@@ -40,6 +43,19 @@ services:
         restart: on-failure
         ports:
             - "8088:8088"
+
+    hadoop:
+        build: docker/hadoop/
+        image: tweets_hadoop
+        ports:
+            - "50010:50010"
+            - "50020:50020"
+            - "50070:50070"
+            - "50075:50075"
+            - "50090:50090"
+            - "8089:8088"
+            - "8020:8020"
+            - "9000:9000"
             
     spark:
         build: docker/spark/
@@ -68,15 +84,27 @@ services:
             - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
             - SPARK_SSL_ENABLED=no
 
-    hadoop:
-        build: docker/hadoop/
-        image: tweets_hadoop
+    hive-server:
+        image: bde2020/hive:2.3.2-postgresql-metastore
+        env_file:
+            - docker/hive/hive.env
+        depends_on:
+            - hive-metastore
+        environment:
+            HIVE_CORE_CONF_javax_jdo_option_ConnectionURL: "jdbc:postgresql://hive-metastore/metastore"
+            SERVICE_PRECONDITION: "hive-metastore:9083"
         ports:
-            - "50010:50010"
-            - "50020:50020"
-            - "50070:50070"
-            - "50075:50075"
-            - "50090:50090"
-            - "8089:8088"
-            - "8020:8020"
-            - "9000:9000"
+            - "10000:10000"
+
+    hive-metastore:
+        image: bde2020/hive:2.3.2-postgresql-metastore
+        env_file:
+            - docker/hive/hive.env
+        depends_on:
+            - hadoop
+            - hive-metastore-postgresql
+        command: /opt/hive/bin/hive --service metastore
+        environment:
+            SERVICE_PRECONDITION: "hadoop:50070 hadoop:50075 hive-metastore-postgresql:5432"
+        ports:
+            - "9083:9083"
