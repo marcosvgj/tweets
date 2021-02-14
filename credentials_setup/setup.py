@@ -23,6 +23,8 @@ def workflow():
 
         yaml.dump(data, filepath)
 
+    print("\n Credentials file was successfully generated.")
+
 
 if __name__ == "__main__":
     workflow()
