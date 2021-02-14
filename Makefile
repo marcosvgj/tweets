@@ -16,7 +16,8 @@ build:
 	@python3 setup.py sdist bdist_wheel
 
 copy-python-project:
-	cp -f dist/*.whl docker/airflow/libs
+	mkdir -p docker/airflow/libs/
+	cp -f dist/*.whl docker/airflow/libs/
 	cp -f requirements.txt docker/airflow/
 
 install-python-project:

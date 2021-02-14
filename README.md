@@ -55,7 +55,7 @@ How To Use
 =========
 
 
-To run this application, you'll need [Git](https://git-scm.com), [Docker](https://docs.docker.com/get-docker/) and [Python Virtual Environment](https://docs.python.org/3/tutorial/venv.html) installed on your computer. From your command line:
+To run this application, you'll need [Git](https://git-scm.com), [Docker](https://docs.docker.com/get-docker/) and [Python Virtual Environment](https://docs.python.org/3/tutorial/venv.html) installed on your computer. Run the commands bellow to start:
 
 ```bash
 # Clone this repository
@@ -63,22 +63,10 @@ $ git clone https://github.com/marcosvgj/tweets.git
 
 # Go into the repository
 $ cd tweets
-```
 
-&nbsp;
+# Setting twitter developer credentials
+$ make configure
 
-After clone, run **make configure** to setting **Twitter Developer Credentials**:
-
-> **Twitter Developer Access Token**: *<insert_your_access_token>* </br>
-> **Twitter Developer Access Token Secret**: *<insert_your_access_token_secret>* </br>
-> **Twitter Developer Consumer Key**: *<insert_your_consumer_key>* </br>
-> **Twitter Developer Consumer Secret**: *<insert_your_consumer_secret>* </br>
-
-&nbsp;
-
-After that, run the chain of commands as below:
-
-```bash
 # Build virtual environment to this project
 $ python3 -m venv tweets
 
