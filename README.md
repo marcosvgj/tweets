@@ -86,11 +86,15 @@ Service Mapping
 =========
 This topic is destinated to map the components created by **Docker Compose** in previous step: 
 
+<center>
+
 |Component|Port|Version|Location|
 |:---|:---:|:---:|---:|
 |<a href="https://spark.apache.org/"><img src="docs/images/spark.png" alt="Tweet" width="60"></a>|8080|3.0.1|http://127.0.0.1:8080/|
 |<a href="https://superset.apache.org/"><img src="docs/images/superset.png" alt="Tweet" width="60"></a>|8088| 0.35.2 |http://127.0.0.1:8088/|
 |<a href="https://airflow.apache.org/"><img src="docs/images/airflow.png" alt="Tweet" width="60"></a>|8090| 2.0 |http://127.0.0.1:8090/|
+
+</center>
 
 &nbsp;
 
