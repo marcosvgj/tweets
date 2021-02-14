@@ -19,10 +19,20 @@ default_args = {
     "retry_delay": timedelta(minutes=5),
 }
 
+
 def run():
-    spark = SparkSession.builder.master("spark://spark:7077").appName(task_name).getOrCreate()
+    spark = (
+        SparkSession.builder.master("spark://spark:7077")
+        .config("hive.metastore.uris", "thrift://hive-metastore:9083")
+        .enableHiveSupport()
+        .appName(task_name)
+        .getOrCreate()
+    )
     dataset = Pipeline.dataset(spark=spark, hashtags=["COVID19"], batch_size=1000)
-    dataset.write.format("parquet").mode("append").option("path", "hdfs://hadoop:9000/raw/tweets_covid").save()
+    dataset.write.format("parquet").mode("append").option(
+        "path", "hdfs://hadoop:9000/raw/tweets_covid"
+    ).saveAsTable("tweets_covid")
+
 
 dag = DAG(
     dag_id=task_name,
