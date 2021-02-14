@@ -13,6 +13,7 @@ services:
 
     webserver:
         build: docker/airflow/
+        image: tweets_airflow:${TAG}
         restart: always
         depends_on:
             - postgres        
@@ -32,14 +33,50 @@ services:
             timeout: 30s
             retries: 3
 
+    superset:
+        container_name: superset
+        build: docker/superset/
+        image: tweets_superset:${TAG}
+        restart: on-failure
+        ports:
+            - "8088:8088"
+            
+    spark:
+        build: docker/spark/
+        image: tweets_spark_master:${TAG}
+        environment:
+            - SPARK_MODE=master
+            - SPARK_RPC_AUTHENTICATION_ENABLED=no
+            - SPARK_RPC_ENCRYPTION_ENABLED=no
+            - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+            - SPARK_SSL_ENABLED=no
+        ports:
+            - "8080:8080"
+            - "7077:7077"
+    spark-worker:
+        build: docker/spark/
+        image: tweets_spark_worker:${TAG}
+        depends_on:
+            - spark
+        environment:
+            - SPARK_MODE=worker
+            - SPARK_MASTER_URL=spark://spark:7077
+            - SPARK_WORKER_MEMORY=1G
+            - SPARK_WORKER_CORES=1
+            - SPARK_RPC_AUTHENTICATION_ENABLED=no
+            - SPARK_RPC_ENCRYPTION_ENABLED=no
+            - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+            - SPARK_SSL_ENABLED=no
+
     hadoop:
-      image: sequenceiq/hadoop-docker:2.7.0
-      ports:
-        - "50010:50010"
-        - "50020:50020"
-        - "50070:50070"
-        - "50075:50075"
-        - "50090:50090"
-        - "8089:8088"
-        - "8020:8020"
-        - "9000:9000"
+        build: docker/hadoop/
+        image: tweets_hadoop:${TAG}
+        ports:
+            - "50010:50010"
+            - "50020:50020"
+            - "50070:50070"
+            - "50075:50075"
+            - "50090:50090"
+            - "8089:8088"
+            - "8020:8020"
+            - "9000:9000"
