@@ -31,6 +31,9 @@ clean-build:
 	rm --force --recursive dist/
 	rm --force --recursive *.egg-info
 
+clean-python-project:
+	rm --force -- docker/airflow/requirements.txt
+
 docker-compose-up:
 	docker-compose kill
 	docker-compose rm -f
@@ -38,7 +41,7 @@ docker-compose-up:
 	docker-compose up --build --force-recreate -d
 
 install: install-requirements test build install-python-project copy-python-project clean
-clean: clean-pyc clean-build
+clean: clean-pyc clean-build clean-python-project
 start: install docker-compose-up
 	
 
