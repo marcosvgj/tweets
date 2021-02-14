@@ -14,5 +14,5 @@ class Pipeline:
     ):
         client = TwitterClient(**CredentialsHandler.read_credentials_from_file())
         data = Search.query(client=client, hashtags=hashtags, batch_size=batch_size)
-        data = spark.sparkContext.parallelize(data)
-        return spark.read.json(data)
+        return spark.createDataFrame(data)
+        
