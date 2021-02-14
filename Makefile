@@ -1,6 +1,7 @@
 SHELL=/bin/bash
 PIP=`command -v pip3 || pip`
 
+.SILENT: run
 .PHONY: install clean build test start configure
 
 configure:
@@ -35,11 +36,11 @@ clean-python-project:
 	rm --force -- docker/airflow/requirements.txt
 
 docker-compose-up:
-	docker-compose kill
-	docker-compose rm -f
-	docker-compose pull
-	docker-compose up --build --force-recreate -d
-	docker exec -it $(docker ps -f NAME=superset -q) superset-init
+	@docker-compose kill
+	@docker-compose rm -f
+	@docker-compose pull
+	@docker-compose up --build --force-recreate -d
+	@docker exec $(docker ps -f NAME=superset -q) superset-init --username admin --password admin --firstname Doctor --lastname Who --email dev@test.com
 
 install: install-requirements test build install-python-project copy-python-project clean
 clean: clean-pyc clean-build
