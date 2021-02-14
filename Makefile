@@ -39,10 +39,11 @@ docker-compose-up:
 	docker-compose rm -f
 	docker-compose pull
 	docker-compose up --build --force-recreate -d
+	docker exec -it $(docker ps -f NAME=superset -q) superset-init
 
 install: install-requirements test build install-python-project copy-python-project clean
-clean: clean-pyc clean-build clean-python-project
-start: install docker-compose-up
+clean: clean-pyc clean-build
+start: install docker-compose-up clean-python-project
 	
 
 
