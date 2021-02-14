@@ -1,2 +1,3 @@
 FROM amancevice/superset:0.35.2
-COPY /superset_config.py /etc/superset
+
+COPY requirements-local.txt requirements-local.txt
