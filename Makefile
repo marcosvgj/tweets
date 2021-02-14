@@ -1,5 +1,6 @@
 SHELL=/bin/bash
 PIP=`command -v pip3 || pip`
+SUPERSET_CONTAINER=`docker ps -f NAME=superset -q`
 
 .SILENT: run
 .PHONY: install clean build test start configure
@@ -40,16 +41,8 @@ docker-compose-up:
 	@docker-compose rm -f
 	@docker-compose pull
 	@docker-compose up --build --force-recreate -d
-	@docker exec $(docker ps -f NAME=superset -q) superset-init --username admin --password admin --firstname Doctor --lastname Who --email dev@test.com
-
+	docker exec $(SUPERSET_CONTAINER) superset-init --username admin --password admin --firstname Doctor --lastname Who --email dev@test.com
+	
 install: install-requirements test build install-python-project copy-python-project clean
 clean: clean-pyc clean-build
 start: install docker-compose-up clean-python-project
-	
-
-
-
-
-
-
-	
