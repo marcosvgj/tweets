@@ -13,7 +13,7 @@ services:
 
     webserver:
         build: docker/airflow/
-        image: tweets_airflow:${TAG}
+        image: tweets_airflow
         restart: always
         depends_on:
             - postgres        
@@ -36,14 +36,14 @@ services:
     superset:
         container_name: superset
         build: docker/superset/
-        image: tweets_superset:${TAG}
+        image: tweets_superset
         restart: on-failure
         ports:
             - "8088:8088"
             
     spark:
         build: docker/spark/
-        image: tweets_spark_master:${TAG}
+        image: tweets_spark_master
         environment:
             - SPARK_MODE=master
             - SPARK_RPC_AUTHENTICATION_ENABLED=no
@@ -55,7 +55,7 @@ services:
             - "7077:7077"
     spark-worker:
         build: docker/spark/
-        image: tweets_spark_worker:${TAG}
+        image: tweets_spark_worker
         depends_on:
             - spark
         environment:
@@ -70,7 +70,7 @@ services:
 
     hadoop:
         build: docker/hadoop/
-        image: tweets_hadoop:${TAG}
+        image: tweets_hadoop
         ports:
             - "50010:50010"
             - "50020:50020"
