@@ -31,7 +31,7 @@ def run():
     dataset = Pipeline.dataset(spark=spark, hashtags=["COVID19"], batch_size=1000)
     dataset.write.format("parquet").mode("append").option(
         "path", "hdfs://hadoop:9000/raw/tweets_covid"
-    ).saveAsTable("tweets_covid")
+    ).option("mergeSchema", True).saveAsTable("tweets_covid")
 
 
 dag = DAG(
